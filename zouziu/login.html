@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="reset.css" />
+	<style type="text/css">
+		body{
+			background: #f3eff0;
+		}
+		.loginTop{
+			height:0.88rem;background: #a90506;
+			text-align: center;font:0.34rem/0.88rem '黑体';color:#fff;position:relative;
+		}
+		.loginTop img{
+				height: 0.88rem;display: block;position: absolute;
+				left: 0;top:0;
+		}
+		.loginInput{
+			margin-top:0.27rem;text-align: center;
+		}
+		.loginInput input{
+			margin:0 auto;
+			margin-top: 0.4rem;width: 5.8rem;height: 0.86rem;
+			border:none;background: #fff;color:#b4b4b4;
+			text-indent: 0.2rem;font: 0.26rem/0.86rem "微软雅黑";
+			border-radius: 0.1rem;display: block;
+		}
+		.loginPwd{
+			width: 5.8rem;margin: 0 auto;margin-top:0.52rem;height:0.4rem;
+		}
+		.loginPwd b{
+			float: left;height:0.38rem;width:0.38rem;
+			border:1px solid #000;margin-left: 0.2rem;
+			background-size:0.38rem 0.38rem;
+		}
+		.loginPwd span{
+			height:0.4rem;font: 0.28rem/0.40rem "微软雅黑";
+			float: left;margin-left: 0.11rem;
+		}
+		.loginPwd a{
+			height:0.4rem;font: 0.28rem/0.40rem "微软雅黑";
+			float: left;color: red;margin-left: 0.37rem;
+		}
+		.savePwd{
+			width: 5.8rem;margin: 0 auto;margin-top: 0.5rem;
+			overflow: hidden;
+		}
+		.savePwd img{
+			float: left;border: none;border: 1px solid #000000;
+			height: 0.38rem;width:0.38rem;margin-left: 0.2rem;
+		}
+		.savePwd span{
+			float: left;font: 0.28rem/0.40rem "微软雅黑";
+			margin-left: 0.11rem;
+		}
+		.loginBtns{
+			margin:0 auto;margin-top: 0.5rem;width: 5.49rem; ;
+		}
+		.loginBtns button{
+			height: 0.84rem;width: 5.47rem;color: #fff;
+			text-align: center;border-radius: 0.1rem;
+			font:0.36rem/0.84rem "微软雅黑";
+		}
+		.loginBtns button:nth-child(1){
+			background: #b40607;border:1px solid #820000;
+		}
+		.loginBtns button:nth-child(2){
+			background: #5d5d5d;border:1px solid #000;margin-top: 0.11rem;
+		}
+	</style>
+	<script type="text/javascript" src="rem.js"></script>
+</head>
+<body>
+	<div class="loginTop">
+		<img src="imgs/jiantou.jpg" alt=""  class='loginGo' />
+		开心摇一摇用户登录
+	</div>
+	<div class="loginInput">
+		<input type="text" placeholder="请输入账户" id='loginName'/>
+		<input type="password" placeholder="请输入密码" id="loginPwd"/>
+	</div>
+	<div class="loginPwd">
+		<b class="checkPwd"></b>
+		<span>显示密码</span>
+		<a href="###">忘记密码了吗?</a>
+	</div>
+	<div class="savePwd">
+		<img src="imgs/gou.jpg" alt="" class="localStorage"/>
+		<span>记住密码自动登录</span>
+	</div>
+	<div class="loginBtns">
+		<button class="longinBtn">登录</button>
+		<button class="registerBtn">注册</button>
+	</div>
+</body>
+	<script type="text/javascript" src="zepto.js"></script>
+	<script type="text/javascript" src="touch.min.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			$('.loginGo').on('tap',function(){
+				window.history.go(-1)
+			})
+			var t=1;
+			var b=1;
+			$('.registerBtn').on('tap',function(){
+				window.location.href="register.html";
+			})
+			$('.checkPwd').on('tap',function(){
+				if(t==1){
+					$('#loginPwd')[0].type='text';
+					$('.checkPwd').css({
+						"background-image":'url(imgs/gou.jpg)'
+					})
+					t=0;
+				}else{
+					$('#loginPwd')[0].type='password';
+					$('.checkPwd').css({
+						"background-image":''
+					})
+					t=1;
+				}
+				
+			})
+			$(".localStorage").on('tap',function(){
+				if(b==0){
+					
+					$(".localStorage")[0].src='imgs/gou.jpg';
+					b=1;
+				}else{
+					
+					$(".localStorage")[0].src='';
+					b=0;
+				}
+				
+			})
+			
+			$('.longinBtn').on('tap',function(){
+				$.ajax({
+					type:"get",
+					url:"  http://datainfo.duapp.com/shopdata/userinfo.php",
+					data:{
+						status:'login',
+						userID:$('#loginName').val(),
+						password:$("#loginPwd").val()
+						},
+					dataType:'json',
+					success:function(data){
+						console.log(data);
+						if(data==0){
+							
+							alert('用户不存在');
+						}else if(data==2){
+							alert('用户密码不符合');
+						}else{
+							console.log('登陆成功');
+							console.log($('#loginName').val());
+							localStorage.setItem('userID',$('#loginName').val());
+							localStorage.setItem('pwd',$('#loginPwd').val());
+							if(b==1){
+								localStorage.setItem('userID1',$('#loginName').val());
+								localStorage.setItem('pwd1',$('#loginPwd').val());
+							}
+							window.location.href='list.html';
+						}
+					}
+				});
+				
+			})
+			
+			
+		}
+	</script>
+</html>

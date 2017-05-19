@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title></title>
+	<link rel="stylesheet" href="reset.css" />
+	<style type="text/css">
+		body{
+			background: #f3eff0;
+		}
+		.top{
+			height:0.88rem;background: #a90506;position: relative;
+			text-align: center;font:0.34rem/0.88rem '黑体';color:#fff;
+		}
+		.top img{
+			height: 0.88rem;width:0.68rem;position: absolute;display: block;top:0;left:0;
+		}
+		.name,.password,.confirm{
+			height: 0.86rem;width:5.8rem;background: #fff;
+			margin:0.3rem auto;border-radius: 0.1rem;
+		}
+		.name span,.password span,.confirm span{
+			display: inline-block;height:0.86rem;width: 1.4rem;
+			text-indent: 0.2rem;font:0.26rem/0.86rem '微软雅黑';
+		}
+		.name input,.password input,.confirm input{
+			border: none;font:0.26rem/0.86rem '微软雅黑';color:#9a9a9a;
+		}
+		.btn{
+			border:none;border:1px solid #820000;
+			background: #b30707;color: #fff;text-align: center;
+			margin-top:1.82rem;height:0.84rem;width: 5.74rem;border-radius: 0.1rem;/*margin-left: 0.31rem;*/
+		}
+		.btns{
+			margin:0 auto;width:6.4rem;text-align: center;
+		}
+	</style>
+	<script type="text/javascript" src='rem.js'></script>
+</head>
+<body>
+	<div class="top"><img src="imgs/jiantou.jpg" alt="" id="back"/> 用户注册</div>
+	<div class="name"><span>账户名称:</span><input type="text" placeholder="请输入账号"  id="name"/></div>
+	<div class="password"><span>登录密码:</span><input type="text" placeholder="请输入密码" id='pwd'/></div>
+	<div class="confirm"><span>确认密码:</span><input type="text" placeholder="请输入密码" id='pwds'/></div>
+	<div class="btns"><button class="btn">确认注册</button></div>
+</body>
+<script type="text/javascript" src="zepto.js"></script>
+<script type="text/javascript" src="touch.min.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		$('#back').on('tap',function(){
+			window.history.go(-1);
+		})
+		$('.btn').on('tap',function(){
+			if($("#pwd").val()==$("#pwds").val()){
+				$.ajax({
+					type:"get",
+					url:"  http://datainfo.duapp.com/shopdata/userinfo.php",
+					data:{
+						status:'register',
+						userID:$('#name').val(),
+						password:$("#pwd").val()
+						},
+					dataType:'json',
+					success:function(data){
+						if(data==0){
+							alert('该账号已注册');
+						}else if(data==1){
+							alert('注册成功');
+							window.location.href='login.html'
+							$('#name')[0].value='';
+							$("#pwd")[0].value='';
+						}else if(data==2){
+							alert('数据库错误');
+							
+						}
+					}
+				});
+			}else{
+				alert('两次输入密码不一致');
+			}
+			
+		})
+	}
+</script>
+</html>

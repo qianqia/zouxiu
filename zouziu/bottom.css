@@ -1,0 +1,17 @@
+.bottomCom{
+			height: 0.97rem;border-top: 1px solid #000000;
+			background: #484850;color:#fff;display: flex;
+			flex-direction: row;justify-content: space-around;
+}
+.bottomCom li{
+	
+}
+.bounceFont{
+	font-size: 0.24rem;font-family: "微软雅黑";
+}
+.bottomCom img{
+	height: 0.67rem;display: block;
+}
+.bottomCom a{
+	display: block;color:#fff;
+}

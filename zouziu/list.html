@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="reset.css" />
+		<link rel="stylesheet" href="bottom.css" />
+		<link rel="stylesheet" href="icons/iconfont.css" />
+		<link rel="stylesheet" href="font/iconfont.css" />
+		
+		<style type="text/css">
+			html,body,.cloth{
+				height: 100%;width:100%;display: flex;
+				flex-direction: column;text-align: center;
+			}
+			.listHeader{
+				height: 1.41rem;border-top:1px solid #c92b2a;
+			}
+			.active{
+				color: #fff;
+			}
+			.listTop{
+				height:0.84rem;background: #b22020;text-align: center;
+				font:0.35rem/0.84rem "微软雅黑";color: #fff;position: relative;
+			}
+			.listCar{
+				height:0.51rem ;width: 1.51rem;border: 1px solid #921211;
+				border-radius:0.1rem;position: absolute;right:0.21rem;
+				top: 0.14rem;background: #c70e0c;text-align: center;
+				line-height: 0.51rem;font-family:"微软雅黑"  ;
+			}
+			.listCar i{
+				font-size:0.4rem ;
+			}
+			.listShow{
+				height: 0.57rem;background: #9a9fa5;display: flex;
+				flex-direction: row;padding-left: 0.3rem;
+				position: relative;
+			}
+			.listShow p{
+				width:0.6rem;text-align: center;line-height:0.57rem ;
+			}
+			.listShow p i{
+				font-size: 0.25rem;
+			}
+			.listShow img{
+				display: block;position: absolute;height:0.07rem;
+				width:0.14rem;bottom: 0;left:0.53rem;
+			}
+			.cloth{
+				flex: 1;overflow:hidden;
+			}
+			.cloth ul{
+				padding-top: 0.4rem;
+			}
+			.cloth li{
+				float: left;margin:0 0.36rem;
+			}
+			.cloth li dl{
+				
+			}
+			.cloth li dl dt img{
+				height: 2.44rem;width: 2.44rem;display: block;
+				-webkit-box-shadow: 0 0 10px #ccc;  
+				  -moz-box-shadow: 0 0 10px #ccc ;  
+				  box-shadow:0 0 10px #ccc; 
+			}
+			.cloth li dl dd{
+				height: 0.58rem;width: 2.44rem;
+				line-height:0.58rem ;
+			}
+			.name{
+				text-align: center;/*white-space: nowrap;*/overflow: hidden;
+				/*text-overflow: ellipsis;*/
+			}
+			.sp span{
+				padding-right: 0.6rem;color: red;font-size: 0.22rem;
+			}
+			.sp b{
+				font-size: 0.16rem;color:#ccc;text-decoration: line-through;
+			}
+			.btList{color:#FF0000!important}
+		</style>
+		<script>window.PointerEvent = void 0</script>
+		<script type="text/javascript" src="rem.js"></script>
+	</head>
+	<body>
+		<div class="listHeader">
+			<div class="listTop">
+				新品上市
+				<div class="listCar">
+					<i class="icon iconfont icon-gouwuche2"></i>
+				</div>
+			</div>
+			<div class="listShow">
+				<img src="imgs/clothTou.jpg" alt="" />
+			</div>
+		</div>
+		<div class="cloth">
+			<ul></ul>
+		</div>
+		<div class="listFooter"></div>
+	</body>
+	<script type="text/javascript" src="zepto.js"></script>
+	<script type="text/javascript" src="iscroll.js"></script>
+	<script type="text/javascript" src="touch.min.js"></script>
+	<script type="text/javascript">
+		$('.listFooter').load('bottom.html',function(){
+			var myScroll=new IScroll('.cloth');
+			setTimeout(function(){ myScroll.refresh(); }, 0);
+			$('.listCar').on('tap',function(){
+				location.href='shopCar.html';
+			})
+			var item='';
+			var id=[];
+			$.ajax({
+				type:"get",
+				url:" http://datainfo.duapp.com/shopdata/getclass.php",
+				dataType:'json',
+				success:function(data){
+					
+					for(var i=0;i<data.length-2;i++){
+						if(i!=2){
+							item+="<p><i class='iconfont'>"+data[i]['icon']+"</i></p>"
+							id.push(data[i]['classID']);
+						}
+					}
+					$(".listShow").append(item);
+					
+//					
+					
+					var imgId=[];
+					$.ajax({
+							type:"get",
+							url:"http://datainfo.duapp.com/shopdata/getGoods.php",
+							dataType:'jsonp',
+							success:function(data){
+								
+								var itm='';
+								imgId=[];
+								for(i=0;i<data.length;i++){
+									imgId.push(data[i]['goodsID'])
+									if(data[i]['discount']==0){
+										data[i]['discount']==1
+									}else{
+										data[i]['discount']=data[i]['discount']/10;
+									}
+								itm+="<li><dl><dt><img src='"+data[i]['goodsListImg']+"'/></dt><dd class='name'>"+data[i]['goodsName']+"</dd><dd class='sp'><span>￥"+data[i]['price']+'</span><b>￥'+(data[i]['price']*data[i]['discount']).toFixed(2)+"</b></dd></dl></li>";
+								}
+								$(".cloth ul").append(itm);
+								$(".cloth li").on('tap',function(){
+									console.log($(this).index());
+								location.href='detail.html?id='+imgId[$(this).index()]+'';
+								})
+								console.log(imgId);
+								var myScroll=new IScroll('.cloth');
+								setTimeout(function(){ myScroll.refresh(); }, 0);
+							}
+					})
+					
+					$('.listShow p').on('tap',function(){
+						$(".listShow i").removeClass('active');
+						$(".listShow i").eq($(this).index()-1).addClass('active');
+						var clothLeft=($(this)[0].offsetLeft)/100+0.53;
+						
+						var jianLeft=$('.listShow img')[0].offsetLeft/100;
+						var step=clothLeft-jianLeft;
+						var time=0;
+						var self=this;
+						
+						var code=10;
+						$.ajax({
+							type:"get",
+							url:"http://datainfo.duapp.com/shopdata/getGoods.php",
+							data:{'classID':id[$(self).index()]},
+							dataType:'jsonp',
+							success:function(data){
+								 imgId=[];
+//								console.log($(".cloth ul").children())
+								$(".cloth ul")[0].innerHTML='';
+								console.log(data);
+								if(data!==0){
+								var it='';
+								for(i=0;i<data.length;i++){
+									
+									imgId.push(data[i]['goodsID'])
+									if(data[i]['discount']==0){
+										data[i]['discount']==1
+									}else{
+										data[i]['discount']=data[i]['discount']/10;
+									}
+				it+="<li><dl><dt><img src='"+data[i]['goodsListImg']+"'/></dt><dd class='name'>"+data[i]['goodsName']+"</dd><dd class='sp'><span>￥"+data[i]['price']+'</span><b>￥'+(data[i]['price']*data[i]['discount']).toFixed(2)+"</b></dd></dl></li>"
+								}
+								$(".cloth ul").append(it);
+								
+								$(".cloth li").on('tap',function(){
+									console.log($(this).index());
+								location.href='detail.html?id='+imgId[$(this).index()]+'';
+;
+								})
+								
+								
+								var myScroll=new IScroll('.cloth');
+								setTimeout(function(){ myScroll.refresh(); }, 0);
+								$(document).on('touchend',function(){
+									
+//									if(myScroll.y>50){
+//												alert('刷新');
+//									}
+//									if(myScroll.y<myScroll.maxScrollY-50){
+//											alert('加载')
+//										if(data.length>code){
+//											code=code+5;
+//											console.log(code);
+//										}
+//									}
+								})
+							}else{
+								
+								$(".cloth ul").html('该类别数据丢失');
+							}
+							}
+						});
+					})
+					
+					
+					
+					
+					
+					
+					
+					
+				}
+			});
+			
+			
+			
+			
+			
+			
+			
+			
+	
+		})
+		
+	</script>
+</html>

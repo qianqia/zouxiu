@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="reset.css" />
+	<link rel="stylesheet" href="bottom.css" />
+	<style type="text/css">
+		body{
+			background: #f7f7f7;
+		}
+		.myTop{
+			height: 0.83rem;position: relative;text-align: center;
+			border-top: 3px solid #c92b2a;border-bottom: 1px solid #282828;
+			font: 0.34rem/0.83rem "微软雅黑";color: #fff;background: #b11f1f;
+		}
+		.recharge{
+			position: absolute;right: 0.2rem;top:0.13rem;width:1.02rem;
+			height: 0.51rem;font: 0.22rem/0.51rem "微软雅黑";border:1px solid #921211;border-radius: 0.1rem;
+		}
+		.myDetail{
+			margin: 0 auto;margin-top:0.62rem;margin-bottom: 0.84rem;
+			width: 5.57rem;overflow: hidden;
+		}
+		.myDetail img{
+			float: left;height: 1.64rem;width: 1.64rem;
+		}
+		.information{
+			float: left;margin-left: 0.32rem;font-size: 0.34rem;
+			font-weight: bold;
+		}
+		.information dt{
+			margin-top:0.28rem
+		}
+		.information dd{
+			margin-top:0.28rem
+		}
+		.information dd span:nth-child(2){
+			color: red;
+		}
+		.mylist{
+			height: 3.6rem;width: 5.57rem;border:1px solid #ccc;
+			border-radius: 0.1rem;margin:0 auto;margin-top: 0.84rem;
+		}
+		.mylist li{
+			border-bottom: 1px solid #ccc;height: 0.88rem;
+			line-height:0.88rem;text-indent: 0.28rem;font-size: 0.3rem;
+		}
+		.mylist li:last-child{
+			border:none;
+		}
+		.youjian{
+			float: right;display: inline-block;padding-right: 0.24rem;
+			font-weight: bold;
+		}
+		.footer{
+			position: fixed;bottom: 0;height: 0.97rem;width:100%;
+		}
+		.btmy{color: #FF0000!important;}
+	</style>
+	<script type="text/javascript" src="rem.js"></script>
+	
+</head>
+<body>
+	<div class="myTop">
+		我的秀
+		<span class="recharge">登录</span>
+	</div>
+	<div class="myDetail">
+		<img src="imgs/user.jpg" alt="" />
+		<dl class="information">
+			<dt><span>昵称:</span><span class="nickname"></span></dt>
+			<dd><span>余额:</span><span>0</span></dd>
+		</dl>
+	</div>
+	
+	<ul class="mylist">
+		<li>
+			<span>我的订单</span>
+			<span class="youjian">&gt;</span>
+		</li>
+		<li>
+			<span>我的优惠券</span>
+			<span class="youjian">&gt;</span>
+		</li>
+		<li>
+			<span>浏览记录</span>
+			<span class="youjian">&gt;</span>
+		</li>
+		<li>
+			<span>我的收藏</span>
+			<span class="youjian">&gt;</span>
+		</li>
+	</ul>
+	<div class="footer"></div>
+</body>
+<script type="text/javascript" src="zepto.js"></script>
+<script type="text/javascript" src="touch.min.js"></script>
+<script type="text/javascript">
+	window.onload=function(){
+		$('.footer').load('bottom.html',function(){
+			$('.recharge').on('tap',function(){
+				window.location.href='login.html'
+			})
+			var val=localStorage.getItem('userID');
+			console.log(val);
+			if(val!=null){
+				$('.nickname').html(val);
+			}else{
+				$('.nickname').html('未知');
+			}
+			console.log($('.footer li').length)
+		})
+	}
+</script>
+</html>

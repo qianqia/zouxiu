@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="stylesheet" href="reset.css" />
+	<link rel="stylesheet" href="swiper-3.3.1.min.css" />
+	<link rel="stylesheet" href="animate.css" />
+	<style type="text/css">
+		body{
+			background: #f3eff0;
+		}
+		.container,.box,.swiper-slide{
+			height:100vh;width:6.4rem ;
+		}
+		.box img{
+			display: block;height:100vh;width:6.4rem ;
+		}
+		.begin{
+			position: relative;
+		}
+		.begin span{
+			display: block;height:0.94rem ;width:2.87rem;
+			background:url(imgs/begin.jpg) no-repeat;position: absolute;
+			background-size:2.87rem  0.94rem;bottom: 2.5rem;left:1.76rem;
+		}
+		
+	</style>
+	<script type="text/javascript" src="rem.js"></script>
+</head>
+<body>
+	<div class="swiper-container container">
+		<div class="swiper-wrapper box"> 
+			<div class="swiper-slide"><img src="imgs/1.jpg" alt="" /></div> 
+			<div class="swiper-slide"><img src="imgs/2.jpg" alt="" /></div> 
+			<div class="swiper-slide"><img src="imgs/3.jpg" alt="" /></div> 
+			<div class="swiper-slide"><img src="imgs/4.jpg" alt="" /></div>
+			<div class="swiper-slide begin">
+				<img src="imgs/5.jpg" alt="" />
+				<span class="jinru"></span>
+			</div>
+		</div> 
+		<!-- 如果需要分页器 --> 
+		<div class="swiper-pagination"></div>
+	</div> 
+</body>
+<script type="text/javascript" src="zepto.js"></script>
+<script type="text/javascript" src='touch.min.js'></script>
+	<script type="text/javascript" src='swiper-3.3.1.jquery.min.js'></script>
+	<script type="text/javascript" src="swiper.animate1.0.2.min.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			
+			var mySwiper = new Swiper ('.swiper-container', { 
+				direction: 'horizontal',
+				loop: false,
+				// 如果需要分页器
+				pagination: '.swiper-pagination', 
+				onInit: function(swiper){ 
+					swiperAnimateCache(swiper); 					swiperAnimate(swiper); //初始化完成开始动画
+	 			}, 
+				onSlideChangeEnd: function(swiper){
+	 			swiperAnimate(swiper); //每个slide切换结束时也运行当前slide动画
+	 			}
+			})
+			$('.jinru').on('tap',function(){
+				location.href='list.html';
+			})
+			
+		}
+	</script>
+</html>

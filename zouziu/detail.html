@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script>window.PointerEvent = void 0</script>
+		<meta name="viewport" content="width=device-width, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="font/iconfont.css" />
+		<link rel="stylesheet" href="reset.css" />
+		
+		<link rel="stylesheet" href="swiper-3.3.1.min.css" />
+		<link rel="stylesheet" href="animate.css" />
+		<style type="text/css">
+			html,body{
+				height: 100%;width:100%;display: flex;
+				flex-direction: column;
+			}
+			.detailHeader{
+				height: 0.84rem;border-top:1px solid #c92b2a;
+				border-bottom: 2px solid #9a9fa5;
+			}
+			.detailTop{
+				height:0.84rem;background: #b22020;text-align: center;
+				font:0.35rem/0.84rem "微软雅黑";color: #fff;position: relative;
+			}
+			.detaiCar{
+				height:0.51rem ;width: 1.51rem;border: 1px solid #921211;
+				border-radius:0.1rem;position: absolute;right:0.21rem;
+				top: 0.14rem;background: #c70e0c;text-align: center;
+				line-height: 0.51rem;font-family:"微软雅黑"  ;
+			}
+			.detaiCar i{
+				font-size:0.4rem ;
+			}
+			.zuo{
+				height:0.84rem;width: 0.6rem;background: url(imgs/houtui.jpg) no-repeat;background-size:0.6rem 0.84rem;
+				position: absolute;left:0;top:0;
+			}
+			.container,.box{
+				height: 3.64rem;overflow:visible;
+			}
+			.box img{
+				height: 3.64rem;display: block; margin: auto;
+			}
+			.container .aa{
+				bottom: -0.5rem;/*width: auto;*/height: 0.4rem;
+				width: 1.26rem;background: #bcbcbc;border-radius: 0.3rem;line-height:0.4rem;margin-left: 2.23rem;
+			}
+			.swiper-pagination-bullet-active{
+				background: #fff;
+			}
+			.contruct{
+				height: 1.57rem;background:#f3eff0;padding-top:0.7rem
+			}
+			.contruct p{
+				margin-left: 0.26rem;
+			}
+			.contruct p:nth-child(1){
+				font-size: 0.27rem;
+			}
+			
+			.contruct p:nth-child(3){
+				
+    			font-size: 0.28rem;
+			}
+			.xian{
+				color:#ba0a53;padding-right:0.27rem;
+				font-size: 0.26rem;
+			}
+			.yuan{
+				text-decoration: line-through;color: #ccc;
+				font-size: 0.26rem;
+			}
+			.shopdetail{
+				height: 1rem;font:0.3rem/1rem "微软雅黑";text-indent: 0.88rem;position: relative;
+			}
+			.detailI{
+				height: 1rem;width:0.58rem;background: url(imgs/i.jpg) no-repeat;background-size:0.58rem  1rem;
+				position: absolute;left: 0;top: 0;
+			}
+			.jin{
+				height: 1rem;width:0.45rem;background: url(imgs/jin.jpg) no-repeat;background-size:0.45rem  1rem;
+				position: absolute;right: 0;top: 0;
+			}
+			.detailGoods{
+				flex: 1;overflow: hidden;
+			}
+			.detailCar{
+				height: 0.98rem;background: #a3a3a3;
+			}
+			.detailCAR{
+				border:none;background: none;height: 0.79rem;width:4.34rem;
+				background: #c02626;color:#fff;font:0.3rem/0.79rem "微软雅黑";
+				text-align: center;border: 1px solid #920201;
+				border-bottom: none;
+				border-radius: 0.1rem;display:block;margin:0 auto;
+				margin-top: 0.07rem;
+}
+			}
+		</style>
+		<script type="text/javascript" src="rem.js"></script>
+	</head>
+	<body>
+		<div class="detailHeader">
+			<div class="detailTop">
+				商品资料
+				<div class="detaiCar">
+					<i class="icon iconfont icon-gouwuche2"></i>
+				</div>
+				<div class="zuo"></div>
+			</div>
+		</div>
+		<div class="detailGoods">
+			<div>
+				<div class="swiper-container container">
+					<div class="swiper-wrapper box"> 
+						<div class="swiper-slide"><img src="" alt="" /></div> 
+						<div class="swiper-slide"><img src="" alt="" /></div>
+						<div class="swiper-slide "><img src=""alt="" /></div>
+					</div> 
+					<!-- 如果需要分页器 --> 
+					<div class="swiper-pagination aa"></div>
+				</div>
+				<div class="contruct">
+					
+				</div>
+				<div class="shopdetail">
+					查看商品详情
+					<div class="detailI"></div>
+					<div class="jin"></div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="detailCar">
+			<button class="detailCAR">加入购物车</button>
+		</div>
+	</body>
+	
+	<script type="text/javascript" src="iscroll.js"></script>
+	<script type="text/javascript" src="zepto.js"></script>
+	<script type="text/javascript" src="touch.min.js"></script>
+	<script type="text/javascript" src='swiper-3.3.1.jquery.min.js'></script>
+	<script type="text/javascript" src="swiper.animate1.0.2.min.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var myScroll=new IScroll('.detailGoods');
+			setTimeout(function(){ myScroll.refresh(); }, 0);
+			var vule=window.location.search.split("=")[1];
+			var _id=Number(vule);
+			$('.zuo').on('tap',function(){
+				window.history.go(-1);
+			})
+			$('.detaiCar').on('tap',function(){
+				console.log(2);
+				window.location.href='shopCar.html';
+			})
+			
+			var mySwiper = new Swiper ('.swiper-container', { 
+				direction: 'horizontal',
+				loop: false,
+				freeModeSticky:true,
+				// 如果需要分页器
+				pagination: '.swiper-pagination', 
+				onInit: function(swiper){ 
+					swiperAnimateCache(swiper); 					
+					swiperAnimate(swiper); //初始化完成开始动画
+	 			}, 
+				onSlideChangeEnd: function(swiper){
+	 			swiperAnimate(swiper); //每个slide切换结束时也运行当前slide动画
+	 			} 
+			})
+			$.ajax({
+				type:"get",
+				url:"http://datainfo.duapp.com/shopdata/getGoods.php",
+				data:{goodsID:_id},
+				dataType:'jsonp',
+				success:function(data){
+					var it='';
+					var t=0;
+					var img=JSON.parse(data[0]['imgsUrl']);
+					
+					
+					$('.box img')[0].src=img[0];
+					$('.box img')[1].src=img[1];
+					$('.box img')[2].src=img[2];
+				
+					if(data[0]['discount']==0){
+						t=data[0]['price'];
+					}else{
+						t=(data[0]['discount']/10)*data[0]['price'];
+					}
+//					t=t.toFixed(2);
+					it='<p>'+data[0]['goodsName']+"</p><p><span class='xian'>￥"+t+"</span><span class='yuan'>"+data[0]['price']+"</span></p><p><span>购买人数：</span><b>"+data[0]['buynumber']+'</b>';
+					
+					$('.contruct').append(it);
+					$('.jin').on('tap',function(){
+							location.href='detail1.html?id='+vule;
+						
+					})
+					var tt=0;
+					$('.detailCAR').on('tap',function(){
+						tt++;
+						console.log(tt);
+						$.ajax({
+							type:"get",
+							url:"http://datainfo.duapp.com/shopdata/updatecar.php",
+							dataType:'json',
+							data:{userID:localStorage.getItem('userID'),goodsID:_id,number:tt},
+							success:function(data){
+								console.log(data);
+								alert('您有一件商品加入购物车')
+							}
+							
+						});
+						
+					})
+				}
+			});
+		}
+	</script>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="reset.css" />
+		<link rel="stylesheet" type="text/css" href="bottom.css"/>
+		<style type="text/css">
+			body,html,.box{
+				background: #f3eff0;height: 100%;display: flex;flex-direction: column;
+			}
+			.luckTop{
+				height: 0.88rem;background: #a90506;position: relative;
+				text-align: center;font: 0.35rem/0.88rem "微软雅黑";color: #fff;
+			}
+			.luckTop img{
+				height: 0.88rem;display: block;position: absolute;
+				left: 0;top:0;
+			}
+			.luckTop span{
+				display: block;height: 0.58rem;width: 1.50rem;position: absolute;
+				border:1px solid #840202;text-align: center;color: #fff;
+				font: 0.28rem/0.58rem "微软雅黑";background: #d10909;
+				border-radius: 0.1rem;right: 0.11rem;top: 0.11rem;
+			}
+			.box{
+				flex: 1;overflow: hidden;
+			}
+			.reward{
+				width: 6.10rem;margin:0.14rem;background: #fcbd00;
+				position: relative;overflow: hidden;
+			}
+			.reward p{
+				height: 1.88rem;width: 2.02rem;background: #640000;
+				position: absolute;left:2.00rem;top:2.1rem;font:0.6rem/1.88rem "微软雅黑";text-align: center;color: #fff;
+			}
+			.reward ul{
+				height: 6.08rem;width: 6.10rem;position: relative;background:  url(imgs/luck.jpg) no-repeat;background-size: cover;
+			}
+			.reward ul li{
+				width: 1.8rem;height: 1.88rem;background:#fff;float: left;
+				opacity: 0;position: absolute;font:0.3rem/1.88rem '1.88rem';
+				text-align: center;color: #fff;
+			}
+			.scroll:nth-child(1){
+				left: 0.12rem;
+    			top: 0.1rem;
+			}
+			.scroll:nth-child(2){
+				left: 2.03rem;    top: 0.1rem;
+			}
+			.scroll:nth-child(3){
+				left: 4.06rem;    top: 0.1rem;
+			}
+			.scroll:nth-child(4){
+				left: 4.06rem;top:2.08rem;
+			}
+			.scroll:nth-child(5){
+				left: 4.06rem;top:4.06rem;
+			}
+			.scroll:nth-child(6){
+				left: 2.03rem;top:4.06rem;
+			}
+			.scroll:nth-child(7){
+				left: 0.12rem;top:4.06rem;
+			}
+			.scroll:nth-child(8){
+				left: 0.12rem;top:2.08rem;
+			}
+			.winners{
+				height: 3.72rem;width: 6.04rem;position:relative;overflow: hidden;
+				margin:0 auto;border:0.03rem solid #a90506;border-bottom: none;
+			}
+			.winnersCon{
+				position: absolute;top:0.03rem;left:0.03rem;width: 6.04rem;
+				background: #ff4948;
+			}
+			.winnersCon ul{
+				height: 0.46rem;display: flex;justify-content: space-around;
+				flex-direction: row;
+			}
+			.winnersCon li{
+				height: 0.46rem;text-align: center;font:0.2rem/0.46rem "微软雅黑"
+			}
+			.winnersCon  ul li:nth-child(1){
+				width:1.5rem;
+			}
+			.winnersCon  ul li:nth-child(2){
+				width:1rem;white-space:nowrap;overflow: hidden;text-overflow: ellipsis;
+			}
+		</style>
+		<script type="text/javascript" src="rem.js"></script>
+		<script>window.PointerEvent = void 0</script>
+	</head>
+	<body>
+		<div class="luckTop">
+			<img src="imgs/jiantou.jpg" alt=""  id='go'/>
+			转盘抽奖
+			<span class="signOut"></span>
+		</div>
+		<div class="box">
+			<div>
+				<div class="reward">
+					<ul>
+						<li class="scroll"><b>一等奖</b></br><i>iPhone6</i></li>
+						<li class="scroll"><b>二等奖</b></br><i>拍得立</i></li>
+						<li class="scroll"><b>三等奖</b></br><i>金币5-10个</i></li>
+						<li class="scroll"><b>三等奖</b></br><i>现金红包</i></li>
+						<li class="scroll"><b>二等奖</b></br><i>iPad  mini2</i></li>
+						<li class="scroll"><b>三等奖</b></br><i>年货礼包</i></li>
+						<li class="scroll"><b>三等奖</b></br><i>围巾</i></li>
+						<li class="scroll"><b>三等奖</b></br><i>金币1-5个</i></li>
+					</ul>
+					<p class="click">抽奖</p>
+				</div>
+			
+				<div class="winners">
+					<div class="winnersCon">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="luckFooter"></div>
+	</body>
+	<script type="text/javascript" src="zepto.js"></script>
+	<script type="text/javascript" src="iscroll.js"></script>
+	<script type="text/javascript" src="touch.min.js"></script>
+	<script type="text/javascript" >
+		window.onload=function(){
+		$('.luckFooter').load('bottom.html',function(){
+			var myScroll=new IScroll('.box');
+			setTimeout(function(){ myScroll.refresh(); }, 0);
+			console.log(localStorage.getItem('userID'));
+			if(localStorage.getItem('userID')!=null){
+				$('.signOut').html('退出登录')
+			}else{
+				$('.signOut').html('登录')
+			}
+			
+			$('#go').on('tap',function(){
+				window.history.go(-1)
+			})
+			$('.signOut').on('tap',function(){
+				if(localStorage.getItem('userID')!=null){
+					localStorage.removeItem('userID');
+					localStorage.removeItem('pwd');
+					localStorage.removeItem('userID1');
+					localStorage.removeItem('pwd1');
+					$('.signOut').html('登录')
+				}else{
+					window.location.href='login.html';
+				}
+
+			})
+			$('.bt').on('tap',function(){
+				$.ajax({
+					type:"get",
+					url:"   http://datainfo.duapp.com/lottery/getsuerfr.php",
+					dataType:'jsonp',
+					success:function(data){
+						if(data==0){
+							console.log('没有结果');
+						}else{
+							console.log(data);
+					
+						}
+					}
+				});
+			})
+			
+			$(".click").on('tap',function(){
+				var userName=localStorage.getItem('userID');
+				
+//					
+						if(userName!==''){
+//							$(".scroll").css('opacity','0');
+							var t=Math.ceil(Math.random()*32);
+							var r=0;
+							var m=0;
+							var n=1;
+							var time=0;
+							var cont='';
+							if(t<=7){
+								var con=$(".scroll b")[t].innerHTML;
+								var con1=$(".scroll i")[t].innerHTML;
+							}else{
+								var h=t%8;
+								
+								var con=$(".scroll b")[h].innerHTML;
+								var con1=$(".scroll i")[h].innerHTML;
+							}
+							
+							console.log(t);
+							
+							var c=0;
+							console.log(con,con1)
+							if(con=='一等奖'){
+								c=1;
+							}else if(con=='二等奖'){
+								c=2;
+							}else if(con=='三等奖'){
+								c=3;
+							}
+							$.ajax({
+								type:"get",
+								url:"http://datainfo.duapp.com/lottery/fruitsubmit.php",
+								data:{
+									
+									userID:userName,
+									fruit:c
+								},
+								dataType:'json',
+								success:function(data){
+									if(data==0){
+										alert('该用户已抽过');
+									}
+									if(data==1){
+							
+									
+										function move(){
+											clearTimeout(time);
+											if(m<t || m==t){
+												if(m==8*n){
+													r=0;
+													n++;
+												}
+												$(".scroll").eq(r-1).css('opacity','0');
+												$(".scroll").eq(r).css('opacity','0.5');
+												r++;
+												m++;
+												
+												time=setTimeout(move,100)
+											}else{
+											}
+											
+										}
+										move();
+										
+										
+										setTimeout(function(){
+										alert('恭喜获得'+con1);
+										},4000)
+									}
+									
+								}
+							});
+						
+//					
+				}else{
+					alert('请登录后在进行此活动')
+				}
+				
+			});
+			$.ajax({
+				type:"get",
+				url:"http://datainfo.duapp.com/lottery/getsuerfr.php",
+				dataType:'jsonp',
+				success:function(data){
+					var code=[];
+					var user=[];
+					var timer=[];
+					var times=0;
+					var item='';					
+					for(var i=0;i<data.length;i++){
+						for(key in data[i]){
+//							code.push(data[i]['fruit']);
+//							user.push(data[i]['userID']);
+							if(data[i]['fruit']=='1'){
+								data[i]['fruit']='一等奖';
+							}else if(data[i]['fruit']=='2'){
+								data[i]['fruit']='二等奖';
+							}else if(data[i]['fruit']=='3'){
+								data[i]['fruit']='三等奖';
+							}
+							timer.push(data[i]['timer']);
+							item+="<ul><li>"+data[i]['fruit']+"</li><li class='user'>"+data[i]['userID']+"</li><li>"+data[i]['timer']+"</li></ul>";
+						}
+					}
+					$('.winnersCon')[0].innerHTML=item;
+					function scrollMove(){
+						clearTimeout(times);
+						$('.winnersCon')[0].style.top=$('.winnersCon')[0].offsetTop-1+'px';
+//						console.log(data.length); 
+						if((Math.abs($('.winnersCon')[0].offsetTop)/100)<data.length*0.46){
+							times=setTimeout(scrollMove,20);
+						}
+						
+//						if((Math.abs($('.winnersCon')[0].offsetTop)/100)>=data.length*0.46){
+//							console.log(1);
+//							$('.winnersCon')[0].offsetTop=0;
+//							console.log($('.winnersCon')[0].offsetTop);
+//							times=setTimeout(scrollMove,20);
+//						}
+					}
+					scrollMove();
+				}
+			});
+		})	
+		}
+	</script>
+</html>

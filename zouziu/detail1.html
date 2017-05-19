@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, 
+initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link rel="stylesheet" href="reset.css" />
+		<link rel="stylesheet" href="font/iconfont.css" />
+		<style type="text/css">
+			html,body{
+				height: 100%;width:100%;display: flex;
+				flex-direction: column;
+			}
+			.detailHeader1{
+				height: 0.84rem;border-top:1px solid #c92b2a;
+				border-bottom: 2px solid #9a9fa5;
+			}
+			.detailTop1{
+				height:0.84rem;background: #b22020;text-align: center;
+				font:0.35rem/0.84rem "微软雅黑";color: #fff;position: relative;
+			}
+			.detaiCar1{
+				height:0.51rem ;width: 1.51rem;border: 1px solid #921211;
+				border-radius:0.1rem;position: absolute;right:0.21rem;
+				top: 0.14rem;background: #c70e0c;text-align: center;
+				line-height: 0.51rem;font-family:"微软雅黑"  ;
+			}
+			.detaiCar1 i{
+				font-size:0.4rem ;
+			}
+			.zuo1{
+				height:0.84rem;width: 0.6rem;background: url(imgs/houtui.jpg) no-repeat;background-size:0.6rem 0.84rem;
+				position: absolute;left:0;top:0;
+			}
+			.contents{
+				flex: 1;overflow: hidden;
+			}
+			.contents img{
+				display: block;height: 4.28rem;
+				margin:0 auto;
+			}
+			.contents p{
+				width:5.8rem;margin:0 auto;min-height:0.32rem;
+				height: auto!important;height: 0.32rem;
+				font:0.22rem/0.32rem "微软雅黑";
+			}
+		</style>
+		<script>window.PointerEvent = void 0</script>
+		<script type="text/javascript" src="rem.js"></script>
+	</head>
+	<body>
+		<div class="detailHeader1">
+			<div class="detailTop1">
+				商品资料
+				<div class="detaiCar1">
+					<i class="icon iconfont icon-gouwuche2"></i>
+				</div>
+				<div class="zuo1"></div>
+			</div>
+		</div>
+		<div class="contents">
+			<ul>
+			</ul>
+		</div>
+	</body>
+	<script type="text/javascript" src="zepto.js"></script>
+	<script type="text/javascript" src="iscroll.js"></script>
+	<script type="text/javascript" src="touch.min.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			var myScroll=new IScroll('.contents');
+			setTimeout(function(){ myScroll.refresh(); }, 0);
+			var vule=window.location.search.split("=")[1];
+			var _id=Number(vule);
+			$('.detaiCar1').on('tap',function(){
+				location.href='shopCar.html';
+			})
+			$('.zuo1').on('tap',function(){
+				window.history.go(-1);
+			})
+			
+			var t='';
+			var itm='';
+			$.ajax({
+				type:"get",
+				url:"http://datainfo.duapp.com/shopdata/getGoods.php",
+				data:{goodsID:_id},
+				dataType:'jsonp',
+				success:function(data){
+					console.log(data);
+					console.log(data[0]['detail']);
+					console.log(data[0]['goodsName']);
+					console.log(JSON.parse(data[0]['goodsBenUrl'])[0])
+					console.log(data[0]['className']);
+					itm="<li><img src='"+JSON.parse(data[0]['goodsBenUrl'])[0]+"'/>"+'<p>品牌名称:'+'</p><p>商品名称:'+data[0]['goodsName']+'</P><p>材质:'+'</p><p>产地:'+"</p><p>商品编号:"+"</p><p>洗涤说明:"+'</p><p>备注:'+'</p><p>其他:'+'</p></li>';
+					$('.contents ul')[0].innerHTML=itm;
+				}
+			});
+		})
+		
+	</script>
+</html>
