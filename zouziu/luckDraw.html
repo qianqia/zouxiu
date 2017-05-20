@@ -90,6 +90,7 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 			.winnersCon  ul li:nth-child(2){
 				width:1rem;white-space:nowrap;overflow: hidden;text-overflow: ellipsis;
 			}
+			.btfirst{color:red!important}
 		</style>
 		<script type="text/javascript" src="rem.js"></script>
 		<script>window.PointerEvent = void 0</script>
@@ -170,12 +171,13 @@ initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
 					}
 				});
 			})
-			
+			var userName=localStorage.getItem('userID');
+			console.log(userName);
 			$(".click").on('tap',function(){
-				var userName=localStorage.getItem('userID');
 				
+			
 //					
-						if(userName!==''){
+						if(userName!==null){
 //							$(".scroll").css('opacity','0');
 							var t=Math.ceil(Math.random()*32);
 							var r=0;
